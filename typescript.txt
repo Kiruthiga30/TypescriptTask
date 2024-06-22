@@ -1,0 +1,311 @@
+
+1.what is typescript
+history
+andreas heilsberg designer at microsoft in 2012
+it is a prog lang that is built heavily based on js and object oriented lang because it is built on top of the js closures
+superset of js lang
+it is both a lang and set of tools basically it is js with additional features
+components->lang,ts compiler,ts lang service
+1.lang->syntax
+keyword->reserved words have spacific meaning
+type annotations->explicitly defining the datatype of variables,functions improve code quality
+var dept=cse //without type annotations
+var dept:string=cse //with ta
+
+2.ts compiler=>convert ts instructions into js equivalent
+
+3.ts lang services=>act as additional layer over compiler that provides a way to communicate and get extended info about
+the project like colorization,statement completion,code formatting,signature help
+
+use of ts
+1.make js devlopment more efficient
+2.intro optional types to js
+3.identify mistakes earlier js takes time to identify error as it is interpreted lang
+4.implement planned features of js 
+
+ts compiles the code and identify the errors and notify as compilation errors it helps catch errors instead of waiting till the runtime
+interpreted lang->compiles the program without converting to machine code
+ts can make use of many of the ecmascript features eventhough the web browser or env does not support them fully
+it supports object oriented programming
+it can run on any env that js runs
+
+compile time->it is a conversion of prog code to machine code
+runtime->occurs after compile time and it is the period when program runs
+
+2.benefits of ts
+->strongly typed superset lang
+can write both static and non static variable in the same file
+static var->defined using the static keyword and static property is the property that can be shared across all instances of a class
+and can be accessed without creating the instance of a class
+->ts provides type inference
+type inference means auto detect the static type value
+eg->let num=4;
+num="4"
+it throws an error automatically 
+->ts supports es6 and es7 js features
+->target older version of js
+in ts config file define the target js version aiming for because many of the old browsers doesnt support new js
+->vs code intellisense and typescript helps in supporting many features like,auto completion,hover the error,point out errors by redline
+->supports object oriented concepts like class,inheritance,interface
+
+statically typed lang->variable types are known at compile time and a variable does not change its type and can only take specific values eg->ts
+dynamically typed lang->identify types at the runtime,interpreter assigns datatype to a value at runtime based on its value eg->js
+
+syntax for ts includes->modules,function,variables,statements and expression,comments
+compiler flags->helps change the behaviour of the compiler during compilation
+eg->--help displays the help manual
+--module loads external module
+--target set the ecma version
+--declaration generates an additional file .d.ts file
+--removecomments remove all comments from the external file
+--out combine multiple o/p files into single o/p file
+--sourcemap generate a source map file
+--module noImplicitAny disallow the compiler to use any type
+--watch watch for file changes and recompile them
+
+identifiers->names given to  various elements in a program like variable,function
+rules
+1.contain both digits and characters and it does not start with digits
+2.should not any other special symbols other than _ $
+3.it cannot be keywords
+4.unique,case sensitive,no space
+
+keywords are reserved words which has special meaning
+break	as	any	switch
+case	if	throw	else
+var	number	string	get
+module	type	instanceof	typeof
+public	private	enum	export
+finally	for	while	void
+null	super	this	new
+in	return	true	false
+any	extends	static	let
+package	implements	interface
+function
+new	try	yield	const
+continue	do	catch
+
+ts is case sensitive both a A are different
+
+each line of instruction is called statements and single line can contain multiple statements separated by semicolon
+// /*/ comments
+
+ts is object oriented
+object->real world entity,each object have three features->state->describe the attributes of an object,behavior->describe how obj will act,identity->unique value that
+distinguish obj from set of similar object
+class->blueprint for creating the objects
+method->communication b/w objects
+
+datatypes->any,built in,user defined
+any->super type of all datatype
+built-in->number,void,string,boolean,undefined,null
+user-defined->arrays,interfaces,classes,enum
+
+enum->it is a special class that represents group of constants(unchangeable variable),two types->string,numeric
+numeric->by default gives val as 0,increment the value accordingly
+enum CardinalDirections {
+  North,
+  East,
+  South,
+  West
+}
+let currentDirection = CardinalDirections.North;
+// logs 0
+console.log(currentDirection);
+
+can set the default value
+enum CardinalDirections {
+  North = 1,
+  East,
+  South,
+  West
+}
+// logs 1
+console.log(CardinalDirections.North);
+// logs 4
+console.log(CardinalDirections.West);
+can assign unique enum values for each
+
+string->enums can contain string values assigned to them
+enum CardinalDirections {
+  North = 'North',
+  East = "East",
+  South = "South",
+  West = "West"
+};
+// logs "North"
+console.log(CardinalDirections.North);
+// logs "West"
+console.log(CardinalDirections.West);
+
+variables=>container to store a value,rules same as identifiers,to declare a var in ts use :
+can use let,const,var
+var [identifier]:[type]=value;
+var dept:string=cse;
+
+type assertion->changing the variable from one type to another type 
+to change the type place the target type within <> and place it before the target
+var str=9;
+var str2:string=<string> str;
+type casting->runtime,type assertion->compile time
+
+inferred typing->not declared with a datatype determines the datatype based on the value assigned
+variable scope->scope is defined based on the variable where it is defined
+global->can be accessed anywhere in the program
+local->only accessible in which they are declared
+class->the variables are called fields 
+fields are declared within the class or outside the method and fields can be accessed using the classname or object of the class
+
+operators->define some function that will be performed on the data
+Arithmetic operators->+,-,*,/,%
+Logical operators->&&,||,!
+Relational operators-><,>,<=,>=,==,!=
+Bitwise operators->&,|,~,^
+Assignment operators
+Ternary/conditional operator
+String operator
+Type Operator
+
+infinite loop->for(;;),while(true)
+
+function->building blocks of code that can be reused again
+optional parameters->it will pass an extra parameter if a value is assigned to it will display otherwise will not display
+rest parameters->value passed should be of the same type and act as placeholders for multiple params (...)
+default params->declare a default value to the parameter
+cannot be default and optional at the same time
+lambda or arrow function
+
+parameter type inference->not necessary to give the datatype of the parameter
+
+function overloads->function have the capability to work based on the input passed to them,multiple function with same name but different implementation
+declaration->based on datatype,based on no.of parameters passed
+
+numbers->maxval=1.7976931348623157E+308,minval=5E-324,nan-equal to value that is not a num,neginfinity->val less than minval,posinfinity->val freater than maxval
+prototype=>to assign new property and methods to the number obj
+number methods->toexponential convert the num to exponent
+tofixed->format the number with specific no.of digits to right of the decimal
+tostring->represent the number in string format
+
+string->tolength->returns the length of the string
+prototype->allows to add properities and method to an object
+charAt->returns the char at the specified index
+charCodeAt->returns the unicode char at the given index
+split->split the section of string into array
+
+array->it is a collection of values that stores the same datatype,they are static once declared cannot be resized,each memory block represents an array
+var num_array:number[]=[1,2,3,4,5]
+array can be created using the array object->var arr:number[]=new Array(4)
+using comma separated values=>var arr:number[]=new Array(1,2,3,4)
+every()->returns true if array satisfies the testing function
+join()->join all elements of array into string
+shift()->removes the first element from array and returns them
+some()->returns true if atleast one element in the array satisfies the given condition
+splice()->add or remove elements from array
+
+tuple->collection of values that store different datatypes,mutable where values can be changed or updated
+
+interface->used to define the structure or shape of an object and specify the properities and methods should object have
+interface does not convert js because it is part of ts
+
+ts is obj oriented so it supports class and it has builtin support for obj,it gets this feature in es6
+field->var declared in class
+constructor->responsible for allocating memory for the object of the class
+function or methods->defines what an obj should do
+
+inheritance->ability to create a new class from existing class using extend keyword
+static var->retains its memory till the end of the program
+data hiding->a class can control its visibility of data members to members of other class
+object->instance of a class contain key-value pairs
+namespace->logical way to group a related code,begin with namespace keyword
+module->used to organize the code in ts
+internal module->used to group class,interfaces,functions in one unit and export them to other module this is similar to namespace,recommended to use namespace 
+instead of internal modules
+external modules->load dependencies between multiple external js file,if there is only one it is not suitable
+
+ambient declaration tells the ts compiler that source code exists somewhere else (d.ts extension)
+
+any->can be used when we dont know what type of value it is and it tells ts that value can be any type
+
+type inference->it determines the type of the value even if it is not explicitly mentioned
+it can define for multiple values
+var x=[1,2,null]
+x:(number|null)[]
+
+union type->in ts,we can combine multiple types of value into single value ,from which we can select the value eg->string,number 
+can express a variable with multiple types
+two or more types can be combined using pipe symbol | (string|number)
+eg-> var val:number|string;
+val=12,val="hello"
+
+null->choose not to assign a value var a=null;
+undefined->forgot to assign a value var a;
+
+type guard->used to get info about the type of variable within the conditional block
+used to confirm the type of variable,expression within the specific block
+it allows the compiler to understand the type more efficiently
+helpful when dealing with union types
+once typeguard is used ts can safely assume the datatype
+common type guards
+1.typeof->used for identifying primitive types as boolean,string,number
+2.instance of->checks if an object is an instance of a particular class or constructor
+3.in->used to check if an object has an particular property or not,will be useful when onjects dealing with common properities
+4.user defined type guards->customly can define type guard function which will return a type predicate
+by narrowing types at compile time it reduces the risk of errors
+
+two types->static typing checked at the compile time
+dynamic typing checked at the runtime
+
+static typing is divided into two types->structural,nominal typing
+in nominal typing->when checking whether a given object is of specific type,we verify type name,field name,field presence,field type
+structural typing->do not care about the type name,it checks whether the object pattern agrees with type defintion
+type compatibility->similarity of two types to each other
+interface Dog {
+  name:string
+}
+ 
+interface Cat {
+  name:string
+}
+ 
+interface Person {
+  firstName:string,
+  lastName:string
+}
+ dog=cat;     //ok
+cat=dog;     //ok
+ We create two objects dog & cat using the Dog & Cat interface. Typescript does not 
+complain when we assign dog to cat and vice versa. This is because both have the same shape
+dog=person; // Property 'name' is missing in type 'Person' but required in type 'Dog'
+cat=person; //Property 'name' is missing in type 'Person' but required in type 'Cat'.
+ But we cannot assign person object to dog or to cat. This is because the structure of person is different from the structure of cat or dog
+
+duck typing does not care about the name,structure of the type,it must have given the types required by the method
+ts does not allow duck typing but js allows
+
+Structural typing is a way of checking if two types are compatible based on their structure (i.e., the properties and methods they have) rather 
+than their explicit names. If two objects have the same shape or structure, they are considered compatible, even if they were defined separately 
+and have different names
+interface Point {
+  x: number;
+  y: number;
+}
+
+interface Coordinate {
+  x: number;
+  y: number;
+}
+
+// Create objects with the same structure
+let point: Point = { x: 10, y: 20 };
+let coordinate: Coordinate = { x: 15, y: 25 };
+
+// Assign one to the other
+point = coordinate; // This works because point and coordinate have the same structure
+
+structural typing->deals with type equivalence whreas interface does not deal with type equivalence
+focuses on shape or structure of the object
+two objects would be compatible if they have the same set of properities and methods
+when comparing types it takes only the members on the type
+
+
+
