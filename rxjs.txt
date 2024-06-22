@@ -1,0 +1,138 @@
+rxjs->reactive extensions lib for javascript
+it is a lib for composing async calls,callbacks and event based programs by using observable sequence
+supported by both js and ts
+provides one core type->observable
+satellite types->observer,schedulers,subjects
+operators inspired by array(map,filter,reduce,every)
+features->helpful in handling async tasks
+observable pattern components
+observable->it is a function that creates observer and attach it to the source
+observer->it is an object which contains next,error,complete methods,it gets called when there is a interaction with the obseravble
+subscription->when the observable is created,to execute it we need to subscribe it or we can cancel the execution
+operators->operator is a function that takes observable as a input and gives observable as a output
+subject->it is an observable that can multicast(talk to many observers)
+schedulers->a scheduler controls the execution of when the subscription has to start and get notified
+
+when the project has lot of async task then we have to use the rxjs
+
+adv->rxjs can be used with other js lib and frameworks,support both js&ts,use observable to work with reactive,offers huge collection of operators
+disadv->debugging the code with observable is difficult
+
+observable->it is a function that acts as a wrapper for datastream,it support to pass messages inside the application,it is useless until the observer subscribes it
+observer is an object which consumes the data emitted by observable,observer keeps receiving the data from observable until the observer unsubscribe it or observable 
+is completed
+
+lifecycle of observable->4
+creation->for creating import observable from rxjs
+subscription->to execute the (execute code or call) observable need to subscribe it
+execution->observer is responsible for execution in observable,each subscriber who subscribes it can provide three values->
+next->observer sends a value that can be string,num or obj,there can be more than one particular next in observable
+error->observer sends a error value that is exception,if there is error in the observer nothing can be displayed
+complete->observer sends no value,if complete value is sent then nothing will be delivered to observable
+descruction->if a complete value or error is sent then the execution stops automatically
+
+observable pattern->in js observable pattern are implemented using observable class,this pattern is used for handling async tasks,event based code
+it is a design pattern that defines the relationship between the observers and observable subject,one to many relationship
+it maintains a list of dependents called observer and notifies them automatically if any state any changes by calling one of their methods
+why it is one to many dependency is because if any one obj changes its state the dependencies associated with them is also updated automatically
+
+marble diagram->visual representation to describe the behaviour of observables in rxjs includes how they emit values and how various operators transform the value
+in diagram->progress from left to right,emitted values represented by circle,different colors or label on the marble indicate diff values,lines or arrows shows the flow 
+of data,| completion,X error
+can use tools like rxjsmarbles,rxviz to visualize marble diagrams
+rxjs includes testing utilities that allows to create and test observables using marble diagram,helpful in visualizing operators
+--a--b---c---|
+---2---3--X
+values emit in the order circle,pentagon,triangle
+if there is no completion or error at the end,then it never terminates
+marble diagram are visual representation of operator works,the inputs and outputs are represented visually
+can be represented using ascii code
+' '->used to align different diagrams(ignored)
+'-'->represent passage of virual unit of time called frame
+'a-z,0-9'->represent alphanumeric values as output(next notification)
+'!'->point at which the error is cancelled
+'#'->error notification
+[0-9]ms->represent millisecond
+[0-9]s->represent second
+[0-9]m->represent minutes
+can group together the notification that ocuur in the same frame using ()
+benefits->easy to understand the behaviour of observable,operator
+used in unit testing to make test more readable,finding race condition(device attempts to perform two or more operations at the sametime)
+
+promise->a promise is an object that represents the eventual completion or failure of an asynchronous operation and its resulting value. 
+        It's a way to handle asynchronous code in a more organized and readable manner.
+  resolve=>success
+  reject=>failure
+rxjs->used to handle async tasks
+differences
+p->produce a single value,used for simple api and easy to understand,execute as soon they are created,once resolved or rejected they are garbage collected
+r->multiple values will be emitted,used for complex api and has powerful tool for handling complex situation,do execute as soon as they are subscribed
+p->once a promise is resolved or rejected it cannot be changed(immutable),handles errors through .catch method,not lazy
+r->handles error through operators like "catcherror","retry",manage subscription if failed to unsubscribe leads to memory leaks,lazy
+p->promise can be chained using .then() but it is more complex but dont have flexibility as rxjs,always aynschronous
+r->allows for complex compositions,either synchronous or asynchronous,offers builtin support for cancellations via unsubscribe through subscriptions
+p->no builtin support for backpressure(control the flow of data)
+r->supports backpressure handling using operators like throttletime,debouncetime,buffer
+it is better to use observable compared to promise because angular framework itself uses observables
+
+monotype operator function->a function type interface that accept and returns a same type of parameter
+
+frequently used op->pipe,of and map,filter,first,concatall,concatmap,connect,every,filter,finalize,find,findindex,isempty,map,merge,mergemap,min,reduce,repeat,
+subscribe,throttle,switchmap,debouncetime,combinelatest,tap,catcherror,retry
+
+map->allows to transform the data emitted by observable into new format and can modify values
+filter->allows to filter out the emitted values by observable based on a given condition
+debouncetime->waits for the specified time before emitting the most recent value
+switchmap->often used for handling async operations such as making http req in angular and transform the value emitted by the observable into a new obsevable and
+unsubscribe the prev observable when new val arrives
+catcherror->allow to handle the errors emitted by the observable
+tap->allows to perform sideeffects on emitted values of observable without modifying the values themselves and often used for debugging,logging,triggering actions
+of->used to emit a sequence of values and it takes any no of args and returns each arg as a separate value,used to combine multiple values into single
+forkjoin->used to combine multiple observable into a single observable that emits an array of values from each source and it waits for all the observables to emit their 
+final value
+finalize->allows to perform a specified action when the observable is completed or error
+pluck->allows to extract a specific property from the emitted values of an observable
+startwith->allows to give default or initial value to the sequence which will be executed first
+retry->allows to retry the emission of values when it encountered error and takes the no.of retry as a parameter and resubscribe to the observable
+take->allows to take a no.of values as specified and it limits the observable to specify only the required no.of values
+distinctuntilchanged->allows to extract the duplicate values from observable,ensures only unique value
+merge->allows to combine multiple observable into single
+
+rate limiting->practice of restricting the rate at which the events or data can be emitted from the observable,it can be useful when the rate of incoming req
+is higher than the rate at which it can be processed or when there limits that no of req made to the server,prevents values emitting too quickly
+op used for rate limiting are throttle time,debounce time,sample time->can be used to limit the rate of emission from observable by discarding that occur too frequently
+audit time->it emits the last val from the source observable
+debounceTime will emit a value from the source stream only if a given time has passed without source producing more values
+throttleTime will start a timer when the source emits. It can be set to emit the first and/or the last value in the given time window. Then it repeats this procedure or 
+emits first value and ignore subsquent values for specified duration
+auditTime behaves in a similar way to the trailing throttleTime, but note that it won't emit a value from the last time window if the source has completed,
+emits a recent value emitted from the source observable within the given time span
+sampleTime simply emits a value from the source in a given time window if the source actually emitted or emits a most recent value from the observable in specified 
+time interval
+
+transformation->process of modifying and manipulating the values emitted by the observable
+methods available in transforming data
+map->appiles a function to each emitted value in the observable and gives the resulting value
+flatmap->appiles a function to each emitted value in the observable and flattens the resulting observable into single observable
+concatmap->appiles a function to each emitted value in the observable and concates the resulting observable into single observable
+mergemap->appiles a function to each emitted value in the observable and merges the resulting observable into single observable
+switchmap->appiles a function to the each emitted value in the observable and switches to the latest resulting observable
+
+Combination->combination op are used to combine multiple observables into single one
+merge->merge multiple observable into single observable that emit each items from each source observable in sequence or creates an 
+observable by merging multiple observables, emitting values from all observables concurrently
+concat->concat multiple observable into single observable that emit each items from each source in sequence one after the other or concatenates multiple 
+observables by subscribing to them one at a time, waiting for each to complete before moving to the next
+zip->combines the items from multiple observable into single observable by combining the items from each observable based on the corresponding index or combines 
+multiple observables by emitting arrays of values that have the same index from each observable
+combinelatest->combine the latest multiple values from the single observable by emitting an item whenever the source observable emits an item or combines multiple 
+observables to create an observable whose values are calculated from the latest values of each of its input observables
+withlatestfrom->combine the latest value from one observable with the latest value from multiple observable or combines the source observable
+with the latest values from other observables whenever the source emits
+forkjoin->combine the items from multiple observable into single observable by emitting an item only after all of the source item emits or waits for 
+all observables to complete and then combines their last emitted values into an array
+
+
+
+
+
